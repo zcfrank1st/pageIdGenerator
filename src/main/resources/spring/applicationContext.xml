@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasouridce.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://192.168.100.107:3306/dev</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>root</value>
+        </property>
+    </bean>
+
+    <!--<bean id="dataSource1"-->
+          <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName">-->
+            <!--<value>${dw-analytics-web.JDBC.driver}</value>-->
+        <!--</property>-->
+        <!--<property name="url">-->
+            <!--<value>${dw-analytics-web.JDBC.output.url}</value>-->
+        <!--</property>-->
+        <!--<property name="username">-->
+            <!--<value>${dw-analytics-web.JDBC.output.username}</value>-->
+        <!--</property>-->
+        <!--<property name="password">-->
+            <!--<value>${dw-analytics-web.JDBC.output.password}</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--<bean id="sqlSessionFactory1" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource1" />-->
+    <!--</bean>-->
+
+    <bean id="mapperConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.springapp.mvc.mappers" />
+    </bean>
+
+    <bean id="IndexInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.springapp.mvc.mappers.IndexInfoMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="PageInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.springapp.mvc.mappers.PageInfoMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <!--&lt;!&ndash; 定时任务 &ndash;&gt;-->
+    <!--<bean id="sheduleObject" class="com.dianping.analytics.util.CrontabJob" />-->
+    <!--<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--<property name="targetObject" ref="sheduleObject" />-->
+        <!--<property name="targetMethod" value="cleanTmpFile" />-->
+    <!--</bean>-->
+    <!--<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+        <!--<property name="jobDetail" ref="jobDetail" />-->
+        <!--<property name="cronExpression" value="0 59 23 1/1 * ? *" />-->
+        <!--&lt;!&ndash;<property name="cronExpression" value="0/5 * * * * ?" />&ndash;&gt;-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--<ref bean="cronTrigger" />-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>

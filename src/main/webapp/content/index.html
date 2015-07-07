@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myapp">
+<div ng-controller="myController">
+    <br>
+    页面名称&nbsp;&nbsp;<input type="text" ng-model="pageIdName"/>&nbsp;
+    描述&nbsp;&nbsp;<input type="text" ng-model="pageIdDesc"/>&nbsp;
+    <button ng-click="generatePageId()">生成pageId</button>
+    <div ng-show="pageIdShow" style="color: red">生成pageId成功!</div>
+    <br>
+    <br>
+    <hr>
+
+    页面名称:&nbsp;&nbsp;
+    <select ng-model="currentPageId" ng-options="pageId.name for pageId in pageIds"></select><br>
+    业务类型:&nbsp;&nbsp;
+    <select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+    <br>
+    页面元素:&nbsp;&nbsp;
+    <input type="text" ng-model="indexIdName"/>
+    <br>
+    描述:&nbsp;&nbsp;
+    <input type="text" ng-model="allDesc"/>
+    <br><br>
+    <button ng-click="saveInfos()">保存信息</button>
+</select>
+</div>
+<script src="lib/bower_components/angularjs/angular.min.js"></script>
+<script src="lib/bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
