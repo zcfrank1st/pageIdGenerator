@@ -3,8 +3,8 @@ package com.springapp.mvc;
 import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.PageInfo;
 import com.springapp.mvc.entity.mybatis.PageInfoExample;
-import com.springapp.mvc.entity.origin.IndexInfoDesc;
-import com.springapp.mvc.entity.origin.PageIdDesc;
+import com.springapp.mvc.entity.origin.IndexInfoAll;
+import com.springapp.mvc.entity.origin.PageIdAll;
 import com.springapp.mvc.mappers.IndexInfoMapper;
 import com.springapp.mvc.mappers.PageInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,10 @@ public class WelcomeController {
 
     @RequestMapping(value = "/generateAndSavePageId", method = RequestMethod.POST)
     @ResponseBody
-    public void generatePageIdAndSave (@RequestBody PageIdDesc pageIdDesc) {
+    public void generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
         PageInfo pageInfo = new PageInfo();
         pageInfo.setPageName(pageIdDesc.getPageIdName());
+        pageInfo.setDesc(pageIdDesc.getPageIdDesc());
         pageInfoMapper.insert(pageInfo);
     }
 
@@ -52,7 +53,7 @@ public class WelcomeController {
 
     @RequestMapping(value = "/saveInfos", method = RequestMethod.POST)
     @ResponseBody
-    public void saveInfos (@RequestBody IndexInfoDesc indexInfoDesc) {
+    public void saveInfos (@RequestBody IndexInfoAll indexInfoDesc) {
         IndexInfo indexInfo = new IndexInfo();
         indexInfo.setDeptId(indexInfoDesc.getDeptId());
         indexInfo.setDesc(indexInfoDesc.getDesc());

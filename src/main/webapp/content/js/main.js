@@ -20,12 +20,25 @@ app.controller('myController',function ($scope, $resource) {
 
     $scope.generatePageId = function () {
         $scope.InfoShow = false;
+        var pageIdAll = {
+            pageIdName: $scope.pageIdName,
+            pageId: "",
+            pageIdDesc: $scope.pageIdDesc,
+            owner: ""
+        };
         //generateAndSavePageId.save({pageIdDesc: "hello"}, function () {
         //
         //});
     };
     $scope.saveInfos = function () {
         $scope.pageIdShow = false;
+        var indexInfoAll = {
+            index : $scope.indexIdName,
+            desc : $scope.allDesc,
+            pageId : $scope.currentPageId.pageId,
+            deptId : $scope.currentBusinessId.id,
+            owner : ""
+        };
         //saveInfos.save({}, function () {
         //
         //});

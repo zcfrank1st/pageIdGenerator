@@ -3,9 +3,10 @@ package com.springapp.mvc.entity.origin;
 /**
  * Created by zcfrank1st on 7/7/15.
  */
-public class PageIdDesc {
+public class PageIdAll {
     private String pageIdName;
     private int pageId;
+    private String pageIdDesc;
     private String owner;
 
     public String getOwner() {
@@ -30,5 +31,13 @@ public class PageIdDesc {
 
     public void setPageId(int pageId) {
         this.pageId = pageId;
+    }
+
+    public String getPageIdDesc() {
+        return pageIdDesc;
+    }
+
+    public void setPageIdDesc(String pageIdDesc) {
+        this.pageIdDesc = pageIdDesc;
     }
 }
