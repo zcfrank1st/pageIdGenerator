@@ -4,19 +4,18 @@
 var app = angular.module('myapp',['ngResource']);
 
 app.controller('myController',function ($scope, $resource) {
-    var generateAndSavePageId = $resource('/generateAndSavePageId');
-    var getPageIdInfos = $resource('/getPageIdInfos');
-    var saveInfos = $resource('/saveInfos');
+    var generateAndSavePageId = $resource('/generatepageid');
+    var getPageIdInfos = $resource('/getinfos');
+    var saveInfos = $resource('/saveinfos');
 
-    //getPageIdInfos.query({}, function () {
-    //    console.log("haha");
-    //
-    //    $scope.pageIds = [
-    //        {name:'超级返首页', id:'1'},
-    //        {name:'布兜妈妈首页', id:'2'}
-    //    ];
-    //    $scope.currentPageId = $scope.pageIds[0];
-    //});
+    getPageIdInfos.query({}, function (data) {
+        console.log(data);
+        //$scope.pageIds = [
+        //    {name:'超级返首页', id:'1'},
+        //    {name:'布兜妈妈首页', id:'2'}
+        //];
+        //$scope.currentPageId = $scope.pageIds[0];
+    });
 
     $scope.generatePageId = function () {
         $scope.InfoShow = false;
@@ -26,10 +25,9 @@ app.controller('myController',function ($scope, $resource) {
             pageIdDesc: $scope.pageIdDesc || "",
             owner: ""
         };
-        console.log(pageIdAll);
-        //generateAndSavePageId.save({pageIdDesc: "hello"}, function () {
-        //
-        //});
+        generateAndSavePageId.save(pageIdAll, function () {
+
+        });
     };
     $scope.saveInfos = function () {
         $scope.pageIdShow = false;
@@ -40,10 +38,9 @@ app.controller('myController',function ($scope, $resource) {
             deptId : $scope.currentBusinessId.id || "",
             owner : ""
         };
-        console.log(indexInfoAll);
-        //saveInfos.save({}, function () {
-        //
-        //});
+        saveInfos.save(indexInfoAll, function () {
+
+        });
     };
 
     // 业务类型定死

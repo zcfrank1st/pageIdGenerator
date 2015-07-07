@@ -49,11 +49,11 @@
         <property name="basePackage" value="com.springapp.mvc.mappers" />
     </bean>
 
-    <bean id="IndexInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <bean id="indexInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.springapp.mvc.mappers.IndexInfoMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
-    <bean id="PageInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <bean id="pageInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="com.springapp.mvc.mappers.PageInfoMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
