@@ -33,7 +33,7 @@ public class WelcomeController {
     @RequestMapping(value = "/generateAndSavePageId", method = RequestMethod.POST)
     @ResponseBody
     public void generatePageIdAndSave (@RequestBody PageIdDesc pageIdDesc) {
-        
+
     }
 
     @RequestMapping(value = "/getPageIdInfos", method = RequestMethod.GET)
