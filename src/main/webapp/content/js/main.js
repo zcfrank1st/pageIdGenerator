@@ -9,12 +9,9 @@ app.controller('myController',function ($scope, $resource) {
     var saveInfos = $resource('/saveinfos');
 
     getPageIdInfos.query({}, function (data) {
-        console.log(data);
-        //$scope.pageIds = [
-        //    {name:'超级返首页', id:'1'},
-        //    {name:'布兜妈妈首页', id:'2'}
-        //];
-        //$scope.currentPageId = $scope.pageIds[0];
+        //console.log(data);
+        $scope.pageIds = data;
+        $scope.currentPageId = $scope.pageIds[0];
     });
 
     $scope.generatePageId = function () {

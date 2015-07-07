@@ -2,6 +2,7 @@ package com.springapp.mvc;
 
 import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.PageInfo;
+import com.springapp.mvc.entity.mybatis.PageInfoExample;
 import com.springapp.mvc.entity.origin.IndexInfoAll;
 import com.springapp.mvc.entity.origin.PageIdAll;
 import com.springapp.mvc.mappers.IndexInfoMapper;
@@ -29,8 +30,9 @@ public class WelcomeService {
     }
 
     public List<PageInfo> getPageIdInfos () {
-        List<PageInfo> pageInfos = pageInfoMapper.selectAllPageIdOrderByDesc();
-        return pageInfoMapper.selectAllPageIdOrderByDesc();
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.setOrderByClause("page_id desc");
+        return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
     public void saveInfos (IndexInfoAll indexInfoDesc) {
