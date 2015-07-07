@@ -21,11 +21,12 @@ app.controller('myController',function ($scope, $resource) {
     $scope.generatePageId = function () {
         $scope.InfoShow = false;
         var pageIdAll = {
-            pageIdName: $scope.pageIdName,
+            pageIdName: $scope.pageIdName || "",
             pageId: "",
-            pageIdDesc: $scope.pageIdDesc,
+            pageIdDesc: $scope.pageIdDesc || "",
             owner: ""
         };
+        console.log(pageIdAll);
         //generateAndSavePageId.save({pageIdDesc: "hello"}, function () {
         //
         //});
@@ -33,12 +34,13 @@ app.controller('myController',function ($scope, $resource) {
     $scope.saveInfos = function () {
         $scope.pageIdShow = false;
         var indexInfoAll = {
-            index : $scope.indexIdName,
-            desc : $scope.allDesc,
-            pageId : $scope.currentPageId.pageId,
-            deptId : $scope.currentBusinessId.id,
+            index : $scope.indexIdName || "",
+            desc : $scope.allDesc || "",
+            pageId : $scope.currentPageId.pageId || "",
+            deptId : $scope.currentBusinessId.id || "",
             owner : ""
         };
+        console.log(indexInfoAll);
         //saveInfos.save({}, function () {
         //
         //});
