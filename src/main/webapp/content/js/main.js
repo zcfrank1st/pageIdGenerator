@@ -29,12 +29,12 @@ app.controller('myController',function ($scope, $resource) {
 
         });
     };
-    $scope.saveInfos = function () {
+    $scope.saveClick = function () {
         $scope.pageIdShow = false;
         var indexInfoAll = {
             index : $scope.indexIdName || "",
             desc : $scope.allDesc || "",
-            pageId : $scope.currentPageId.pageId || "",
+            pageId : $scope.currentPageId.pageId,
             deptId : $scope.currentBusinessId.id || "",
             owner : ""
         };
