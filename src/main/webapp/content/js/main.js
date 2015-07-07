@@ -19,11 +19,13 @@ app.controller('myController',function ($scope, $resource) {
     //});
 
     $scope.generatePageId = function () {
-        generateAndSavePageId.save({pageIdDesc: "hello"}, function () {
-
-        });
+        $scope.InfoShow = false;
+        //generateAndSavePageId.save({pageIdDesc: "hello"}, function () {
+        //
+        //});
     };
     $scope.saveInfos = function () {
+        $scope.pageIdShow = false;
         //saveInfos.save({}, function () {
         //
         //});

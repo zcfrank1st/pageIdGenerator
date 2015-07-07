@@ -1,6 +1,9 @@
 package com.springapp.mvc;
 
-import com.springapp.mvc.entity.origin.IndexInfo;
+import com.springapp.mvc.entity.mybatis.IndexInfo;
+import com.springapp.mvc.entity.mybatis.PageInfo;
+import com.springapp.mvc.entity.mybatis.PageInfoExample;
+import com.springapp.mvc.entity.origin.IndexInfoDesc;
 import com.springapp.mvc.entity.origin.PageIdDesc;
 import com.springapp.mvc.mappers.IndexInfoMapper;
 import com.springapp.mvc.mappers.PageInfoMapper;
@@ -33,18 +36,28 @@ public class WelcomeController {
     @RequestMapping(value = "/generateAndSavePageId", method = RequestMethod.POST)
     @ResponseBody
     public void generatePageIdAndSave (@RequestBody PageIdDesc pageIdDesc) {
-
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setPageName(pageIdDesc.getPageIdName());
+        pageInfoMapper.insert(pageInfo);
     }
 
     @RequestMapping(value = "/getPageIdInfos", method = RequestMethod.GET)
     @ResponseBody
-    public List<PageIdDesc> getPageIdInfos () {
-        return null;
+    public List<PageInfo> getPageIdInfos () {
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.or().andPageIdIsNull();
+        pageInfoExample.setOrderByClause("order by page_id desc");
+        return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
     @RequestMapping(value = "/saveInfos", method = RequestMethod.POST)
     @ResponseBody
-    public void saveInfos (@RequestBody IndexInfo indexInfo) {
-
+    public void saveInfos (@RequestBody IndexInfoDesc indexInfoDesc) {
+        IndexInfo indexInfo = new IndexInfo();
+        indexInfo.setDeptId(indexInfoDesc.getDeptId());
+        indexInfo.setDesc(indexInfoDesc.getDesc());
+        indexInfo.setIndex(indexInfoDesc.getIndex());
+        indexInfo.setPageId(indexInfoDesc.getPageId());
+        indexInfoMapper.insert(indexInfo);
     }
 }

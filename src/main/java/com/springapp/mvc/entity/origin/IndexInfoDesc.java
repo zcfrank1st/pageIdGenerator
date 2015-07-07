@@ -3,7 +3,7 @@ package com.springapp.mvc.entity.origin;
 /**
  * Created by zcfrank1st on 7/7/15.
  */
-public class IndexInfo {
+public class IndexInfoDesc {
     private String index;
     private String desc;
     private int pageId;
