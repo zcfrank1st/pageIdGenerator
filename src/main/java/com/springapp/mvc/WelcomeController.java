@@ -37,7 +37,7 @@ public class WelcomeController {
     public void generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
         PageInfo pageInfo = new PageInfo();
         pageInfo.setPageName(pageIdDesc.getPageIdName());
-        pageInfo.setDesc(pageIdDesc.getPageIdDesc());
+        pageInfo.setDescription(pageIdDesc.getPageIdDesc());
         pageInfoMapper.insert(pageInfo);
     }
 
@@ -53,7 +53,7 @@ public class WelcomeController {
     public void saveInfos (@RequestBody IndexInfoAll indexInfoDesc) {
         IndexInfo indexInfo = new IndexInfo();
         indexInfo.setDeptId(indexInfoDesc.getDeptId());
-        indexInfo.setDesc(indexInfoDesc.getDesc());
+        indexInfo.setDescription(indexInfoDesc.getDesc());
         indexInfo.setIndex(indexInfoDesc.getIndex());
         indexInfo.setPageId(indexInfoDesc.getPageId());
         indexInfoMapper.insert(indexInfo);
