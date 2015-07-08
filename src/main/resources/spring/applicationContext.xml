@@ -26,13 +26,13 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="url">
-            <value></value>
+            <value>jdbc:mysql://kettle.db.51fanli.it:3306/</value>
         </property>
         <property name="username">
-            <value></value>
+            <value>kettle_etl</value>
         </property>
         <property name="password">
-            <value></value>
+            <value>kettle_etl123</value>
         </property>
     </bean>
 
