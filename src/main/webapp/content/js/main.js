@@ -9,7 +9,6 @@ app.controller('myController',function ($scope, $resource) {
     var saveInfos = $resource('/saveinfos');
 
     getPageIdInfos.query({}, function (data) {
-        //console.log(data);
         $scope.pageIds = data;
         $scope.currentPageId = $scope.pageIds[0];
     });
@@ -23,7 +22,7 @@ app.controller('myController',function ($scope, $resource) {
             owner: ""
         };
         generateAndSavePageId.save(pageIdAll, function () {
-
+            $scope.pageIdShow = true;
         });
     };
     $scope.saveClick = function () {
@@ -36,7 +35,7 @@ app.controller('myController',function ($scope, $resource) {
             owner : ""
         };
         saveInfos.save(indexInfoAll, function () {
-
+            $scope.InfoShow = true;
         });
     };
 
