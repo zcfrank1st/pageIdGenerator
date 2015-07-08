@@ -23,6 +23,10 @@ app.controller('myController',function ($scope, $resource) {
         };
         generateAndSavePageId.save(pageIdAll, function () {
             $scope.pageIdShow = true;
+            getPageIdInfos.query({}, function (data) {
+                $scope.pageIds = data;
+                $scope.currentPageId = $scope.pageIds[0];
+            });
         });
     };
     $scope.saveClick = function () {

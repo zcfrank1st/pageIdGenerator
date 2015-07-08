@@ -10,6 +10,7 @@ import com.springapp.mvc.mappers.PageInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ public class WelcomeService {
         PageInfo pageInfo = new PageInfo();
         pageInfo.setPageName(pageIdDesc.getPageIdName());
         pageInfo.setDescription(pageIdDesc.getPageIdDesc());
+        pageInfo.setCreateTime(new Date());
+        pageInfo.setUpdateTime(new Date());
         pageInfoMapper.insert(pageInfo);
     }
 
@@ -39,8 +42,10 @@ public class WelcomeService {
         IndexInfo indexInfo = new IndexInfo();
         indexInfo.setDeptId(indexInfoDesc.getDeptId());
         indexInfo.setDescription(indexInfoDesc.getDesc());
-        indexInfo.setIndex(indexInfoDesc.getIndex());
+        indexInfo.setIndexName(indexInfoDesc.getIndex());
         indexInfo.setPageId(indexInfoDesc.getPageId());
+        indexInfo.setCreateTime(new Date());
+        indexInfo.setUptimeTime(new Date());
         indexInfoMapper.insert(indexInfo);
     }
 }
