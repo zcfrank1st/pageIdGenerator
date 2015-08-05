@@ -11,6 +11,9 @@ app.controller('myController',function ($scope, $resource) {
     var showPages = $resource('/pages/:departmentId', {departmentId: '@did'});
     var showModules = $resource('/modules/:departmentId/:pageId', {departmentId: '@did', pageId: '@pid'});
 
+    var delPage = $resource('/page/:id', {id: '@id'});
+    var delModule = $resource('/module/:id', {id: '@id'});
+
     getPageIdInfos.query({}, function (data) {
         $scope.pageIds = data;
         $scope.currentPageId = $scope.pageIds[0];
@@ -102,4 +105,18 @@ app.controller('myController',function ($scope, $resource) {
             return "native";
         }
     }
+
+
+    // 失效
+    $scope.delModule = function(id) {
+        delModule.delete({id: id}, function(data) {
+            console.log(data);
+        });
+    };
+
+    $scope.delPage = function(id) {
+        delPage.delete({id: id}, function(data) {
+            console.log(data);
+        });
+    };
 });

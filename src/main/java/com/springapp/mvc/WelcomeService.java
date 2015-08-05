@@ -58,23 +58,48 @@ public class WelcomeService {
 
     public List<PageInfo> showPages(int departmentId) {
         PageInfoExample pageInfoExample = new PageInfoExample();
-        pageInfoExample.or().andDeptIdEqualTo(departmentId);
-        pageInfoExample.setOrderByClause("page_id desc");
+        pageInfoExample.or().andDeptIdEqualTo(departmentId).andIsValidEqualTo(1);
         return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
     public List<IndexInfo> showModules(int departmentId, int pageId) {
         IndexInfoExample indexInfoExample =  new IndexInfoExample();
-        indexInfoExample.or().andDeptIdEqualTo(departmentId).andPageIdEqualTo(pageId);
-        indexInfoExample.setOrderByClause("id desc");
+        indexInfoExample.or().andDeptIdEqualTo(departmentId).andPageIdEqualTo(pageId).andIsValidEqualTo(1);;
         return indexInfoMapper.selectByExample(indexInfoExample);
     }
 
-    public void delPage() {
+    public int delPage(int id) {
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.or().andPageIdEqualTo(id);
+        List<PageInfo> pageInfos = pageInfoMapper.selectByExample(pageInfoExample);
 
+        PageInfo pageInfo = pageInfos.get(0);
+        pageInfo.setIsValid(0);
+
+        delRalativeModules(id);
+        return pageInfoMapper.updateByExample(pageInfo, pageInfoExample);
     }
 
-    public void delModule() {
+    private void delRalativeModules(int pageId) {
+        IndexInfoExample indexInfoExample = new IndexInfoExample();
+        indexInfoExample.or().andPageIdEqualTo(pageId).andIsValidEqualTo(1);
+        List<IndexInfo> indexInfos = indexInfoMapper.selectByExample(indexInfoExample);
 
+        for (IndexInfo indexInfo: indexInfos) {
+            indexInfo.setIsValid(0);
+            IndexInfoExample indexInfoExample1 = new IndexInfoExample();
+            indexInfoExample1.or().andIdEqualTo(indexInfo.getId());
+            indexInfoMapper.updateByExample(indexInfo, indexInfoExample1);
+        }
+    }
+
+    public int delModule(int id) {
+        IndexInfoExample indexInfoExample = new IndexInfoExample();
+        indexInfoExample.or().andIdEqualTo(id);
+        List<IndexInfo> indexInfos = indexInfoMapper.selectByExample(indexInfoExample);
+
+        IndexInfo indexInfo =  indexInfos.get(0);
+        indexInfo.setIsValid(0);
+        return indexInfoMapper.updateByExample(indexInfo, indexInfoExample);
     }
 }
