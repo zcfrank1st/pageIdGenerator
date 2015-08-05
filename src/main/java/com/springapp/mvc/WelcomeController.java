@@ -56,13 +56,13 @@ public class WelcomeController {
 
     @RequestMapping(value = "/page/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public int deletePage(@PathVariable int id) {
-        return welcomeService.delPage(id);
+    public void deletePage(@PathVariable int id) {
+        welcomeService.delPage(id);
     }
 
     @RequestMapping(value = "/module/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public int deleteModule(@PathVariable int id) {
-        return welcomeService.delModule(id);
+    public void deleteModule(@PathVariable int id) {
+        welcomeService.delModule(id);
     }
 }

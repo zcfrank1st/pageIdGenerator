@@ -109,14 +109,14 @@ app.controller('myController',function ($scope, $resource) {
 
     // 失效
     $scope.delModule = function(id) {
-        delModule.delete({id: id}, function(data) {
-            console.log(data);
+        delModule.delete({id: id}, function() {
+            alert("删除module成功！");
         });
     };
 
     $scope.delPage = function(id) {
-        delPage.delete({id: id}, function(data) {
-            console.log(data);
+        delPage.delete({id: id}, function() {
+            alert("删除page成功！");
         });
     };
 });
