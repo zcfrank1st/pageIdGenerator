@@ -1,14 +1,12 @@
 package com.springapp.mvc;
 
+import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.PageInfo;
 import com.springapp.mvc.entity.origin.IndexInfoAll;
 import com.springapp.mvc.entity.origin.PageIdAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,7 +24,7 @@ public class WelcomeController {
         return new ModelAndView("redirect:/content/index.html");
     }
 
-    @RequestMapping(value = "/generatepageid", method = RequestMethod.POST)
+    @RequestMapping(value = "/generatepage", method = RequestMethod.POST)
     @ResponseBody
     public void generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
         welcomeService.generatePageIdAndSave(pageIdDesc);
@@ -38,9 +36,21 @@ public class WelcomeController {
         return welcomeService.getPageIdInfos();
     }
 
-    @RequestMapping(value = "/saveinfos", method = RequestMethod.POST)
+    @RequestMapping(value = "/generatemodule", method = RequestMethod.POST)
     @ResponseBody
     public void saveInfos (@RequestBody IndexInfoAll indexInfoDesc) {
-        welcomeService.saveInfos(indexInfoDesc);
+        welcomeService.generateModuleAndSave(indexInfoDesc);
+    }
+
+    @RequestMapping(value = "/pages/{departmentId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PageInfo> showPages (@PathVariable int departmentId) {
+        return welcomeService.showPages(departmentId);
+    }
+
+    @RequestMapping(value = "/modules/{departmentId}/{pageId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IndexInfo> showModules (@PathVariable int departmentId, @PathVariable int pageId) {
+        return welcomeService.showModules(departmentId, pageId);
     }
 }

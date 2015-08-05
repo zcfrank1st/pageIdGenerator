@@ -8,6 +8,34 @@ public class PageIdAll {
     private int pageId;
     private String pageIdDesc;
     private String owner;
+    private int typeId;
+    private int isValid;
+
+    public int getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(int isValid) {
+        this.isValid = isValid;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public int getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
+    }
+
+    private int deptId;
 
     public String getOwner() {
         return owner;

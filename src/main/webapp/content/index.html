@@ -1,35 +1,247 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+    <link href="lib/ace/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="lib/ace/assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="lib/ace/assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="lib/ace/assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="lib/ace/assets/css/ace-skins.min.css"/>
+    <link rel="stylesheet" href="css/mine.css">
+
+    <script src="lib/ace/assets/js/ace-extra.min.js"></script>
 </head>
 <body ng-app="myapp">
-<div ng-controller="myController">
-    <br>
-    页面名称&nbsp;&nbsp;<input type="text" ng-model="pageIdName"/>&nbsp;
-    描述&nbsp;&nbsp;<input type="text" ng-model="pageIdDesc"/>&nbsp;
-    <button ng-click="generatePageId()">生成pageId</button>
-    <div ng-show="pageIdShow" style="color: red">生成pageId成功!</div>
-    <br>
-    <br>
-    <hr>
+<div class="navbar navbar-default" id="navbar" style="height: 45px;background: green">
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="icon-leaf"></i>
+                    Page & Module
+                </small>
+            </a><!-- /.brand -->
+        </div>
+        <!-- /.navbar-header -->
 
-    页面名称:&nbsp;&nbsp;
-    <select ng-model="currentPageId" ng-options="pageId.pageName for pageId in pageIds"></select><br>
-    业务类型:&nbsp;&nbsp;
-    <select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
-    <br>
-    页面元素:&nbsp;&nbsp;
-    <input type="text" ng-model="indexIdName"/>
-    <br>
-    描述:&nbsp;&nbsp;
-    <input type="text" ng-model="allDesc"/>
-    <br><br>
-    <button ng-click="saveClick()">保存信息</button>
-    <div ng-show="InfoShow" style="color: red">保存成功成功!</div>
-</select>
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="green">
+                    <img class="nav-user-photo" src="lib/ace/assets/avatars/avatar4.png"/>
+								<span class="user-info">
+									<small style="color: whitesmoke">欢迎!</small>
+								</span>
+                </li>
+            </ul>
+            <!-- /.ace-nav -->
+        </div>
+        <!-- /.navbar-header -->
+    </div>
+    <!-- /.container -->
 </div>
+
+
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+        <div class="sidebar" id="sidebar">
+            <ul class="nav nav-list">
+                <li>
+                    <a href="">
+                        <i class="icon-book" style="color: green"></i>
+                        <span class="" style="color: green"> 生成与查看 </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="main-content" ng-controller="myController">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-flat">
+                                <h4><i class="icon-gear"></i>Page新增</h4>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="mine-border">
+                                                页面名称:&nbsp;&nbsp;<input type="text" ng-model="pageIdName"/>
+                                            </div>
+                                            <div class="mine-border">
+                                                页面描述:&nbsp;&nbsp;<input type="text" ng-model="pageIdDesc"/>
+                                            </div>
+                                            <div class="mine-border">
+                                                类型:&nbsp;&nbsp;<select ng-model="currentTypeId" ng-options="typeId.name for typeId in typeIds"></select>
+                                            </div>
+                                            <div class="mine-border">
+                                                部门:&nbsp;&nbsp;<select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                                            </div>
+                                            <hr>
+                                            <div class="align-right">
+                                                <button ng-click="generatePageId()" class="mine-border btn btn-info btn-sm">确定</button>
+                                            </div>
+                                            <div ng-show="pageIdShow" class="mine-border" style="color: red">
+                                                新增page成功!
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-flat">
+                                <h4><i class="icon-gear"></i>Module新增</h4>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="mine-border">
+                                                模块名称:&nbsp;&nbsp;<input type="text" ng-model="indexIdName"/>
+                                            </div>
+                                            <div class="mine-border">
+                                                模块描述:&nbsp;&nbsp;<input type="text" ng-model="allDesc"/>
+                                            </div>
+                                            <div class="mine-border">
+                                                关联页面:&nbsp;&nbsp;<select ng-model="currentPageId" ng-options="pageId.pageName for pageId in pageIds"></select>
+                                            </div>
+                                            <div class="mine-border">
+                                                类型:&nbsp;&nbsp;<select ng-model="currentTypeId" ng-options="typeId.name for typeId in typeIds"></select>
+                                            </div>
+                                            <div class="mine-border">
+                                                部门:&nbsp;&nbsp;<select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                                            </div>
+                                            <hr>
+                                            <div class="align-right">
+                                                <button ng-click="saveClick()"
+                                                        class="mine-border btn btn-info btn-sm">确定
+                                                </button>
+                                            </div>
+                                            <div ng-show="InfoShow" class="mine-border" style="color: red">新增module成功!</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-flat">
+                                <h4><i class=" icon-eye-open"></i>Page查看</h4>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div>
+                                                <span>部门:</span>
+                                                <select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                                                <div style="text-align: right; display: inline"><button class="btn btn-minier btn-inverse" ng-click="viewPages()">查看现存Page</button></div>
+
+                                                <div style="margin-top: 5px;" ng-show="pages">
+                                                    <table class="table table-striped table-hover table-responsive">
+                                                        <thead>
+                                                        <tr>
+                                                            <td>id</td>
+                                                            <td>名称</td>
+                                                            <td>描述</td>
+                                                            <td>类型</td>
+                                                            <td>置失效</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody ng-repeat="page in pages">
+                                                            <td>{{page.pageId}}</td>
+                                                            <td>{{page.pageName}}</td>
+                                                            <td>{{page.description}}</td>
+                                                            <td>{{page.type}}</td>
+                                                            <td>
+                                                                <button class="btn btn-danger btn-minier" ng-click="delPage(page.id)"><i class="icon-remove"></i></button>
+                                                            </td>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-flat">
+                                <h4><i class=" icon-eye-open"></i>Module查看</h4>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <span>部门:</span>
+                                            <select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                                            <span>页面：</span>
+                                            <select ng-model="currentPageId" ng-options="pageId.pageName for pageId in pageIds"></select>
+                                            <button class="btn btn-minier btn-inverse" ng-click="viewModules()">查看现存Module</button>
+
+                                            <div style="margin-top: 5px;" ng-show="modules">
+                                                <table class="table table-striped table-hover table-responsive">
+                                                    <thead>
+                                                    <tr>
+                                                        <td>id</td>
+                                                        <td>名称</td>
+                                                        <td>描述</td>
+                                                        <td>类型</td>
+                                                        <td>置失效</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody ng-repeat="module in modules">
+                                                        <td>{{module.id}}</td>
+                                                        <td>{{module.indexName}}</td>
+                                                        <td>{{module.description}}</td>
+                                                        <td>{{module.type}}</td>
+                                                        <td>
+                                                            <button class="btn btn-danger btn-minier" ng-click="delModule(module.id)"><i class="icon-remove"></i></button>
+                                                        </td>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="lib/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="lib/ace/assets/js/bootstrap.min.js"></script>
+<script src="lib/ace/assets/js/ace-elements.min.js"></script>
+<script src="lib/ace/assets/js/ace.min.js"></script>
+
 <script src="lib/bower_components/angularjs/angular.min.js"></script>
 <script src="lib/bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="js/main.js"></script>

@@ -9,6 +9,24 @@ public class IndexInfoAll {
     private int pageId;
     private int deptId;
     private String owner;
+    private int typeId;
+    private int isValid;
+
+    public int getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(int isValid) {
+        this.isValid = isValid;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
 
     public String getIndex() {
         return index;
