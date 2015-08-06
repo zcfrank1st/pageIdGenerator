@@ -78,6 +78,9 @@
                                                 页面描述:&nbsp;&nbsp;<input type="text" ng-model="pageIdDesc"/>
                                             </div>
                                             <div class="mine-border">
+                                                页面正则:&nbsp;&nbsp;<input type="text" ng-model="urlReg"/>
+                                            </div>
+                                            <div class="mine-border">
                                                 类型:&nbsp;&nbsp;<select ng-model="currentTypeId" ng-options="typeId.name for typeId in typeIds"></select>
                                             </div>
                                             <div class="mine-border">
@@ -164,7 +167,8 @@
                                                             <td>名称</td>
                                                             <td>描述</td>
                                                             <td>类型</td>
-                                                            <td>置失效</td>
+                                                            <td>匹配正则</td>
+                                                            <td>操作</td>
                                                         </tr>
                                                         </thead>
                                                         <tbody ng-repeat="page in pages">
@@ -172,8 +176,10 @@
                                                             <td>{{page.pageName}}</td>
                                                             <td>{{page.description}}</td>
                                                             <td>{{page.type}}</td>
+                                                            <td>{{page.urlReg}}</td>
                                                             <td>
                                                                 <button class="btn btn-danger btn-minier" ng-click="delPage(page.pageId)"><i class="icon-remove"></i></button>
+                                                                <button class="btn btn-success btn-minier" ng-click="modifyPage(page.pageId)"><i class="icon-edit"></i></button>
                                                             </td>
                                                         </tbody>
                                                     </table>
@@ -211,7 +217,7 @@
                                                         <td>名称</td>
                                                         <td>描述</td>
                                                         <td>类型</td>
-                                                        <td>置失效</td>
+                                                        <td>操作</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody ng-repeat="module in modules">
@@ -221,6 +227,7 @@
                                                         <td>{{module.type}}</td>
                                                         <td>
                                                             <button class="btn btn-danger btn-minier" ng-click="delModule(module.id)"><i class="icon-remove"></i></button>
+                                                            <button class="btn btn-success btn-minier" ng-click="modifyModule(module.id)"><i class="icon-edit"></i></button>
                                                         </td>
                                                     </tbody>
                                                 </table>
@@ -237,12 +244,77 @@
     </div>
 </div>
 
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Module 修改</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="mine-border">
+                        模块名称:&nbsp;&nbsp;<input type="text" ng-model="indexIdName"/>
+                    </div>
+                    <div class="mine-border">
+                        模块描述:&nbsp;&nbsp;<input type="text" ng-model="allDesc"/>
+                    </div>
+                    <div class="mine-border">
+                        关联页面:&nbsp;&nbsp;<select ng-model="currentPageId" ng-options="pageId.pageName for pageId in pageIds"></select>
+                    </div>
+                    <div class="mine-border">
+                        类型:&nbsp;&nbsp;<select ng-model="currentTypeId" ng-options="typeId.name for typeId in typeIds"></select>
+                    </div>
+                    <div class="mine-border">
+                        部门:&nbsp;&nbsp;<select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">更新</button>
+            <button class="btn btn-warning" ng-click="cancel()">取消</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="myModalContent1.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Page 修改</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="mine-border">
+                        页面名称:&nbsp;&nbsp;<input type="text" ng-model="pageIdName"/>
+                    </div>
+                    <div class="mine-border">
+                        页面描述:&nbsp;&nbsp;<input type="text" ng-model="pageIdDesc"/>
+                    </div>
+                    <div class="mine-border">
+                        页面正则:&nbsp;&nbsp;<input type="text" ng-model="urlReg"/>
+                    </div>
+                    <div class="mine-border">
+                        类型:&nbsp;&nbsp;<select ng-model="currentTypeId" ng-options="typeId.name for typeId in typeIds"></select>
+                    </div>
+                    <div class="mine-border">
+                        部门:&nbsp;&nbsp;<select ng-model="currentBusinessId" ng-options="businessId.name for businessId in businessIds"></select>
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">更新</button>
+            <button class="btn btn-warning" ng-click="cancel()">取消</button>
+        </div>
+    </script>
+</div>
+
 <script src="lib/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="lib/ace/assets/js/bootstrap.min.js"></script>
 <script src="lib/ace/assets/js/ace-elements.min.js"></script>
 <script src="lib/ace/assets/js/ace.min.js"></script>
 
 <script src="lib/bower_components/angularjs/angular.min.js"></script>
+<script src="lib/ui-bootstrap-tpls-0.13.2.min.js"></script>
 <script src="lib/bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="js/main.js"></script>
 </body>

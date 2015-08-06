@@ -4,6 +4,7 @@ package com.springapp.mvc.entity.origin;
  * Created by zcfrank1st on 7/7/15.
  */
 public class IndexInfoAll {
+    private int id;
     private String index;
     private String desc;
     private int pageId;
@@ -11,6 +12,14 @@ public class IndexInfoAll {
     private String owner;
     private int typeId;
     private int isValid;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getIsValid() {
         return isValid;

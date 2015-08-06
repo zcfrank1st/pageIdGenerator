@@ -65,4 +65,16 @@ public class WelcomeController {
     public void deleteModule(@PathVariable int id) {
         welcomeService.delModule(id);
     }
+
+    @RequestMapping(value = "/update/page", method = RequestMethod.POST)
+    @ResponseBody
+    public void updatePage (@RequestBody PageIdAll pageIdDesc) {
+        welcomeService.updatePage(pageIdDesc);
+    }
+
+    @RequestMapping(value = "/update/module", method = RequestMethod.POST)
+    @ResponseBody
+    public void generatePageIdAndSave (@RequestBody IndexInfoAll indexInfoAll) {
+        welcomeService.updateModule(indexInfoAll);
+    }
 }

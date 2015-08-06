@@ -33,6 +33,7 @@ public class WelcomeService {
         pageInfo.setCreateTime(new Date());
         pageInfo.setUpdateTime(new Date());
         pageInfo.setIsValid(1);
+        pageInfo.setUrlReg(pageIdDesc.getUrlReg());
         pageInfoMapper.insert(pageInfo);
     }
 
@@ -101,5 +102,34 @@ public class WelcomeService {
         IndexInfo indexInfo =  indexInfos.get(0);
         indexInfo.setIsValid(0);
         return indexInfoMapper.updateByExample(indexInfo, indexInfoExample);
+    }
+
+    public void updatePage(PageIdAll pageIdAll) {
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.or().andPageIdEqualTo(pageIdAll.getId());
+
+        PageInfo pageInfo1 = new PageInfo();
+        pageInfo1.setDeptId(pageIdAll.getDeptId());
+        pageInfo1.setDescription(pageIdAll.getPageIdDesc());
+        pageInfo1.setPageName(pageIdAll.getPageIdName());
+        pageInfo1.setTypeId(pageIdAll.getTypeId());
+        pageInfo1.setUpdateTime(new Date());
+        pageInfo1.setUrlReg(pageIdAll.getUrlReg());
+
+        pageInfoMapper.updateByExampleSelective(pageInfo1, pageInfoExample);
+    }
+
+    public void updateModule(IndexInfoAll indexInfoAll) {
+        IndexInfoExample indexInfoExample = new IndexInfoExample();
+        indexInfoExample.or().andIdEqualTo(indexInfoAll.getId());
+
+        IndexInfo indexInfo = new IndexInfo();
+        indexInfo.setDeptId(indexInfoAll.getDeptId());
+        indexInfo.setDescription(indexInfoAll.getDesc());
+        indexInfo.setIndexName(indexInfoAll.getIndex());
+        indexInfo.setPageId(indexInfoAll.getPageId());
+        indexInfo.setTypeId(indexInfoAll.getTypeId());
+
+        indexInfoMapper.updateByExampleSelective(indexInfo, indexInfoExample);
     }
 }

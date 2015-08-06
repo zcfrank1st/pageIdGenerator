@@ -4,12 +4,30 @@ package com.springapp.mvc.entity.origin;
  * Created by zcfrank1st on 7/7/15.
  */
 public class PageIdAll {
+    private int id;
     private String pageIdName;
     private int pageId;
     private String pageIdDesc;
     private String owner;
     private int typeId;
     private int isValid;
+    private String urlReg;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUrlReg() {
+        return urlReg;
+    }
+
+    public void setUrlReg(String urlReg) {
+        this.urlReg = urlReg;
+    }
 
     public int getIsValid() {
         return isValid;
