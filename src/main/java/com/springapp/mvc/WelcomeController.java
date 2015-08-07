@@ -26,8 +26,8 @@ public class WelcomeController {
 
     @RequestMapping(value = "/generatepage", method = RequestMethod.POST)
     @ResponseBody
-    public void generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
-        welcomeService.generatePageIdAndSave(pageIdDesc);
+    public String generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
+        return "" + welcomeService.generatePageIdAndSave(pageIdDesc);
     }
 
     @RequestMapping(value = "/getinfos", method = RequestMethod.GET)
@@ -76,5 +76,17 @@ public class WelcomeController {
     @ResponseBody
     public void generatePageIdAndSave (@RequestBody IndexInfoAll indexInfoAll) {
         welcomeService.updateModule(indexInfoAll);
+    }
+
+    @RequestMapping(value = "/pages", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PageInfo> showAllPages () {
+        return welcomeService.showAllPages();
+    }
+
+    @RequestMapping(value = "/modules", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IndexInfo> showAllModules () {
+        return welcomeService.showAllModules();
     }
 }

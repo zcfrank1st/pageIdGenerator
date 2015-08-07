@@ -11,6 +11,22 @@ function transferTypeId2Type (id) {
     }
 }
 
+function transferDepartmentId2Department (id) {
+    if (1 === id) {
+        return "9k9";
+    } else if (2 === id) {
+        return "超级返";
+    } else if (3 === id) {
+        return "基础返";
+    } else if (4 === id) {
+        return "布兜妈妈";
+    } else if (5 === id) {
+        return "一元购";
+    } else if (6 === id) {
+        return "全局";
+    }
+}
+
 var app = angular.module('myapp',['ngResource', 'ui.bootstrap']);
 
 app.controller('myController',function ($scope, $resource, $modal) {
@@ -20,6 +36,8 @@ app.controller('myController',function ($scope, $resource, $modal) {
 
     var showPages = $resource('/pages/:departmentId', {departmentId: '@did'});
     var showModules = $resource('/modules/:departmentId/:pageId', {departmentId: '@did', pageId: '@pid'});
+    var showAllPages = $resource('/pages');
+    var showAllModules = $resource('/modules');
 
     var delPage = $resource('/page/:id', {id: '@id'});
     var delModule = $resource('/module/:id', {id: '@id'});
@@ -32,7 +50,7 @@ app.controller('myController',function ($scope, $resource, $modal) {
     $scope.generatePageId = function () {
         $scope.InfoShow = false;
         var pageIdAll = {
-            pageIdName: $scope.pageIdName || "(无效)",
+            pageIdName: $scope.pageIdName || "",
             pageId: "",
             pageIdDesc: $scope.pageIdDesc || "",
             owner: "",
@@ -41,18 +59,24 @@ app.controller('myController',function ($scope, $resource, $modal) {
             isValid : 1,
             urlReg: $scope.urlReg || ""
         };
-        generateAndSavePage.save(pageIdAll, function () {
-            $scope.pageIdShow = true;
-            getPageIdInfos.query({}, function (data) {
-                $scope.pageIds = data;
-                $scope.currentPageId = $scope.pageIds[0];
+
+        if ("" === pageIdAll.pageIdName) {
+            alert("page name 不能为空! 生成page失败");
+        } else {
+            generateAndSavePage.save(pageIdAll, function (data) {
+                console.log(data);
+                $scope.pageIdShow = true;
+                getPageIdInfos.query({}, function (data) {
+                    $scope.pageIds = data;
+                    $scope.currentPageId = $scope.pageIds[0];
+                });
             });
-        });
+        }
     };
     $scope.saveClick = function () {
         $scope.pageIdShow = false;
         var indexInfoAll = {
-            index : $scope.indexIdName || "(无效)",
+            index : $scope.indexIdName || "",
             desc : $scope.allDesc || "",
             pageId : $scope.currentPageId.pageId,
             deptId : $scope.currentBusinessId.id || "",
@@ -60,9 +84,14 @@ app.controller('myController',function ($scope, $resource, $modal) {
             owner : "",
             isValid : 1
         };
-        generateAndSaveModule.save(indexInfoAll, function () {
-            $scope.InfoShow = true;
-        });
+
+        if ("" === indexInfoAll.index) {
+            alert("module name不能为空! 生成module失败");
+        } else {
+            generateAndSaveModule.save(indexInfoAll, function () {
+                $scope.InfoShow = true;
+            });
+        }
     };
 
     // 业务类型定死
@@ -71,7 +100,8 @@ app.controller('myController',function ($scope, $resource, $modal) {
         {name:'超级返', id:'2'},
         {name:'基础返', id:'3'},
         {name:'布兜妈妈', id:'4'},
-        {name:'一元购', id:'5'}
+        {name:'一元购', id:'5'},
+        {name:'全局', id: '6'}
     ];
     // 种类定死
     $scope.typeIds = [
@@ -86,6 +116,7 @@ app.controller('myController',function ($scope, $resource, $modal) {
 
 
     $scope.viewPages = function() {
+        $scope.p_department = false;
         showPages.query({departmentId: $scope.currentBusinessId.id}, function(data) {
             var results = [];
             for (var i = 0; i <= data.length - 1; i++) {
@@ -96,7 +127,34 @@ app.controller('myController',function ($scope, $resource, $modal) {
         });
     };
 
+    $scope.viewAllPages = function () {
+        $scope.p_department = true;
+        showAllPages.query({}, function (data) {
+            var results = [];
+            for (var i = 0; i <= data.length - 1; i++) {
+                data[i].type = transferTypeId2Type(data[i].typeId);
+                data[i].department = transferDepartmentId2Department(data[i].deptId);
+                results.push(data[i]);
+            }
+            $scope.pages = results;
+        });
+    };
+
+    $scope.viewAllModules = function () {
+        $scope.m_department = true;
+        showAllModules.query({}, function (data) {
+            var results = [];
+            for (var i = 0; i <= data.length - 1; i++) {
+                data[i].type = transferTypeId2Type(data[i].typeId);
+                data[i].department = transferDepartmentId2Department(data[i].deptId);
+                results.push(data[i]);
+            }
+            $scope.modules = results;
+        });
+    };
+
     $scope.viewModules = function () {
+        $scope.m_department = false;
         showModules.query({departmentId: $scope.currentBusinessId.id, pageId: $scope.currentPageId.pageId}, function(data) {
             var results = [];
             for (var i = 0; i <= data.length - 1; i++) {
@@ -168,7 +226,8 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, id, $resou
         {name:'超级返', id:'2'},
         {name:'基础返', id:'3'},
         {name:'布兜妈妈', id:'4'},
-        {name:'一元购', id:'5'}
+        {name:'一元购', id:'5'},
+        {name:'全局', id: '6'}
     ];
     // 种类定死
     $scope.typeIds = [
@@ -212,7 +271,8 @@ app.controller('ModalInstanceCtrl1', function ($scope, $modalInstance, id, $reso
         {name:'超级返', id:'2'},
         {name:'基础返', id:'3'},
         {name:'布兜妈妈', id:'4'},
-        {name:'一元购', id:'5'}
+        {name:'一元购', id:'5'},
+        {name:'全局', id: '6'}
     ];
     // 种类定死
     $scope.typeIds = [

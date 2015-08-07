@@ -24,7 +24,7 @@ public class WelcomeService {
     @Autowired
     private PageInfoMapper pageInfoMapper;
 
-    public void generatePageIdAndSave (PageIdAll pageIdDesc) {
+    public int generatePageIdAndSave (PageIdAll pageIdDesc) {
         PageInfo pageInfo = new PageInfo();
         pageInfo.setPageName(pageIdDesc.getPageIdName());
         pageInfo.setDescription(pageIdDesc.getPageIdDesc());
@@ -34,7 +34,7 @@ public class WelcomeService {
         pageInfo.setUpdateTime(new Date());
         pageInfo.setIsValid(1);
         pageInfo.setUrlReg(pageIdDesc.getUrlReg());
-        pageInfoMapper.insert(pageInfo);
+        return pageInfoMapper.insert(pageInfo);
     }
 
     public List<PageInfo> getPageIdInfos () {
@@ -44,7 +44,7 @@ public class WelcomeService {
         return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
-    public void generateModuleAndSave (IndexInfoAll indexInfoDesc) {
+    public int generateModuleAndSave (IndexInfoAll indexInfoDesc) {
         IndexInfo indexInfo = new IndexInfo();
         indexInfo.setDeptId(indexInfoDesc.getDeptId());
         indexInfo.setDescription(indexInfoDesc.getDesc());
@@ -54,7 +54,7 @@ public class WelcomeService {
         indexInfo.setCreateTime(new Date());
         indexInfo.setUpdateTime(new Date());
         indexInfo.setIsValid(1);
-        indexInfoMapper.insert(indexInfo);
+        return indexInfoMapper.insert(indexInfo);
     }
 
     public List<PageInfo> showPages(int departmentId) {
@@ -104,7 +104,7 @@ public class WelcomeService {
         return indexInfoMapper.updateByExample(indexInfo, indexInfoExample);
     }
 
-    public void updatePage(PageIdAll pageIdAll) {
+    public int updatePage(PageIdAll pageIdAll) {
         PageInfoExample pageInfoExample = new PageInfoExample();
         pageInfoExample.or().andPageIdEqualTo(pageIdAll.getId());
 
@@ -116,10 +116,10 @@ public class WelcomeService {
         pageInfo1.setUpdateTime(new Date());
         pageInfo1.setUrlReg(pageIdAll.getUrlReg());
 
-        pageInfoMapper.updateByExampleSelective(pageInfo1, pageInfoExample);
+        return pageInfoMapper.updateByExampleSelective(pageInfo1, pageInfoExample);
     }
 
-    public void updateModule(IndexInfoAll indexInfoAll) {
+    public int updateModule(IndexInfoAll indexInfoAll) {
         IndexInfoExample indexInfoExample = new IndexInfoExample();
         indexInfoExample.or().andIdEqualTo(indexInfoAll.getId());
 
@@ -130,6 +130,20 @@ public class WelcomeService {
         indexInfo.setPageId(indexInfoAll.getPageId());
         indexInfo.setTypeId(indexInfoAll.getTypeId());
 
-        indexInfoMapper.updateByExampleSelective(indexInfo, indexInfoExample);
+        return indexInfoMapper.updateByExampleSelective(indexInfo, indexInfoExample);
+    }
+
+    public List<PageInfo> showAllPages() {
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.or().andIsValidEqualTo(1);
+
+        return pageInfoMapper.selectByExample(pageInfoExample);
+    }
+
+    public List<IndexInfo> showAllModules() {
+        IndexInfoExample indexInfoExample = new IndexInfoExample();
+        indexInfoExample.or().andIsValidEqualTo(1);
+
+        return indexInfoMapper.selectByExample(indexInfoExample);
     }
 }
