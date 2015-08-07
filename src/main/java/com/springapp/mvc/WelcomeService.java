@@ -25,16 +25,20 @@ public class WelcomeService {
     private PageInfoMapper pageInfoMapper;
 
     public int generatePageIdAndSave (PageIdAll pageIdDesc) {
-        PageInfo pageInfo = new PageInfo();
-        pageInfo.setPageName(pageIdDesc.getPageIdName());
-        pageInfo.setDescription(pageIdDesc.getPageIdDesc());
-        pageInfo.setDeptId(pageIdDesc.getDeptId());
-        pageInfo.setTypeId(pageIdDesc.getTypeId());
-        pageInfo.setCreateTime(new Date());
-        pageInfo.setUpdateTime(new Date());
-        pageInfo.setIsValid(1);
-        pageInfo.setUrlReg(pageIdDesc.getUrlReg());
-        return pageInfoMapper.insert(pageInfo);
+        try {
+            PageInfo pageInfo = new PageInfo();
+            pageInfo.setPageName(pageIdDesc.getPageIdName());
+            pageInfo.setDescription(pageIdDesc.getPageIdDesc());
+            pageInfo.setDeptId(pageIdDesc.getDeptId());
+            pageInfo.setTypeId(pageIdDesc.getTypeId());
+            pageInfo.setCreateTime(new Date());
+            pageInfo.setUpdateTime(new Date());
+            pageInfo.setIsValid(1);
+            pageInfo.setUrlReg(pageIdDesc.getUrlReg());
+            return pageInfoMapper.insert(pageInfo);
+        }catch(Exception e) {
+            return -1;
+        }
     }
 
     public List<PageInfo> getPageIdInfos () {
@@ -45,16 +49,20 @@ public class WelcomeService {
     }
 
     public int generateModuleAndSave (IndexInfoAll indexInfoDesc) {
-        IndexInfo indexInfo = new IndexInfo();
-        indexInfo.setDeptId(indexInfoDesc.getDeptId());
-        indexInfo.setDescription(indexInfoDesc.getDesc());
-        indexInfo.setIndexName(indexInfoDesc.getIndex());
-        indexInfo.setPageId(indexInfoDesc.getPageId());
-        indexInfo.setTypeId(indexInfoDesc.getTypeId());
-        indexInfo.setCreateTime(new Date());
-        indexInfo.setUpdateTime(new Date());
-        indexInfo.setIsValid(1);
-        return indexInfoMapper.insert(indexInfo);
+        try {
+            IndexInfo indexInfo = new IndexInfo();
+            indexInfo.setDeptId(indexInfoDesc.getDeptId());
+            indexInfo.setDescription(indexInfoDesc.getDesc());
+            indexInfo.setIndexName(indexInfoDesc.getIndex());
+            indexInfo.setPageId(indexInfoDesc.getPageId());
+            indexInfo.setTypeId(indexInfoDesc.getTypeId());
+            indexInfo.setCreateTime(new Date());
+            indexInfo.setUpdateTime(new Date());
+            indexInfo.setIsValid(1);
+            return indexInfoMapper.insert(indexInfo);
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     public List<PageInfo> showPages(int departmentId) {

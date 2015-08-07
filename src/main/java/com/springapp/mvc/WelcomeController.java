@@ -3,6 +3,7 @@ package com.springapp.mvc;
 import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.PageInfo;
 import com.springapp.mvc.entity.origin.IndexInfoAll;
+import com.springapp.mvc.entity.origin.Message;
 import com.springapp.mvc.entity.origin.PageIdAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,10 @@ public class WelcomeController {
 
     @RequestMapping(value = "/generatepage", method = RequestMethod.POST)
     @ResponseBody
-    public String generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
-        return "" + welcomeService.generatePageIdAndSave(pageIdDesc);
+    public Message generatePageIdAndSave (@RequestBody PageIdAll pageIdDesc) {
+        Message message = new Message();
+        message.setReturnCode(welcomeService.generatePageIdAndSave(pageIdDesc));
+        return message;
     }
 
     @RequestMapping(value = "/getinfos", method = RequestMethod.GET)
@@ -38,8 +41,10 @@ public class WelcomeController {
 
     @RequestMapping(value = "/generatemodule", method = RequestMethod.POST)
     @ResponseBody
-    public void saveInfos (@RequestBody IndexInfoAll indexInfoDesc) {
-        welcomeService.generateModuleAndSave(indexInfoDesc);
+    public Message saveInfos (@RequestBody IndexInfoAll indexInfoDesc) {
+        Message message = new Message();
+        message.setReturnCode(welcomeService.generateModuleAndSave(indexInfoDesc));
+        return message;
     }
 
     @RequestMapping(value = "/pages/{departmentId}", method = RequestMethod.GET)

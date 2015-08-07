@@ -65,7 +65,11 @@ app.controller('myController',function ($scope, $resource, $modal) {
         } else {
             generateAndSavePage.save(pageIdAll, function (data) {
                 console.log(data);
-                $scope.pageIdShow = true;
+                if (data.returnCode !== -1) {
+                    $scope.pageIdShow = true;
+                } else {
+                    alert("page name重复，生成page失败！");
+                }
                 getPageIdInfos.query({}, function (data) {
                     $scope.pageIds = data;
                     $scope.currentPageId = $scope.pageIds[0];
@@ -88,8 +92,12 @@ app.controller('myController',function ($scope, $resource, $modal) {
         if ("" === indexInfoAll.index) {
             alert("module name不能为空! 生成module失败");
         } else {
-            generateAndSaveModule.save(indexInfoAll, function () {
-                $scope.InfoShow = true;
+            generateAndSaveModule.save(indexInfoAll, function (data) {
+                if (data.returnCode !== -1) {
+                    $scope.InfoShow = true;
+                } else {
+                    alert("module name重复，生成module失败！");
+                }
             });
         }
     };
