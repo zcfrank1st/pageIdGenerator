@@ -4,6 +4,7 @@ import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.IndexInfoExample;
 import com.springapp.mvc.entity.mybatis.PageInfo;
 import com.springapp.mvc.entity.mybatis.PageInfoExample;
+import com.springapp.mvc.entity.origin.IndexInfoAdvance;
 import com.springapp.mvc.entity.origin.IndexInfoAll;
 import com.springapp.mvc.entity.origin.PageIdAll;
 import com.springapp.mvc.mappers.IndexInfoMapper;
@@ -11,6 +12,7 @@ import com.springapp.mvc.mappers.PageInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +61,7 @@ public class WelcomeService {
             indexInfo.setCreateTime(new Date());
             indexInfo.setUpdateTime(new Date());
             indexInfo.setIsValid(1);
+            indexInfo.setActionType(indexInfoDesc.getActionType());
             return indexInfoMapper.insert(indexInfo);
         } catch (Exception e) {
             return -1;
@@ -71,10 +74,23 @@ public class WelcomeService {
         return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
-    public List<IndexInfo> showModules(int departmentId, int pageId) {
+    public List<IndexInfoAdvance> showModules(int departmentId, int pageId) {
         IndexInfoExample indexInfoExample =  new IndexInfoExample();
-        indexInfoExample.or().andDeptIdEqualTo(departmentId).andPageIdEqualTo(pageId).andIsValidEqualTo(1);;
-        return indexInfoMapper.selectByExample(indexInfoExample);
+        indexInfoExample.or().andDeptIdEqualTo(departmentId).andPageIdEqualTo(pageId).andIsValidEqualTo(1);
+        List<IndexInfo> indexInfos =  indexInfoMapper.selectByExample(indexInfoExample);
+
+        List<IndexInfoAdvance> newIndexInfo = new ArrayList<IndexInfoAdvance>();
+        for (IndexInfo indexInfo: indexInfos) {
+            PageInfoExample pageInfoExample = new PageInfoExample();
+            pageInfoExample.or().andPageIdEqualTo(indexInfo.getPageId());
+            PageInfo currentPageInfo = (pageInfoMapper.selectByExample(pageInfoExample)).get(0);
+
+            IndexInfoAdvance indexInfoAdvance = new IndexInfoAdvance(indexInfo);
+            indexInfoAdvance.setPageName(currentPageInfo.getPageName());
+            newIndexInfo.add(indexInfoAdvance);
+        }
+
+        return newIndexInfo;
     }
 
     public int delPage(int id) {
@@ -148,10 +164,22 @@ public class WelcomeService {
         return pageInfoMapper.selectByExample(pageInfoExample);
     }
 
-    public List<IndexInfo> showAllModules() {
+    public List<IndexInfoAdvance> showAllModules() {
         IndexInfoExample indexInfoExample = new IndexInfoExample();
         indexInfoExample.or().andIsValidEqualTo(1);
+        List<IndexInfo> indexInfos = indexInfoMapper.selectByExample(indexInfoExample);
 
-        return indexInfoMapper.selectByExample(indexInfoExample);
+        List<IndexInfoAdvance> newIndexInfo = new ArrayList<IndexInfoAdvance>();
+        for (IndexInfo indexInfo: indexInfos) {
+            PageInfoExample pageInfoExample = new PageInfoExample();
+            pageInfoExample.or().andPageIdEqualTo(indexInfo.getPageId());
+            PageInfo currentPageInfo = (pageInfoMapper.selectByExample(pageInfoExample)).get(0);
+
+            IndexInfoAdvance indexInfoAdvance = new IndexInfoAdvance(indexInfo);
+            indexInfoAdvance.setPageName(currentPageInfo.getPageName());
+            newIndexInfo.add(indexInfoAdvance);
+        }
+
+        return newIndexInfo;
     }
 }

@@ -1,7 +1,7 @@
 package com.springapp.mvc;
 
-import com.springapp.mvc.entity.mybatis.IndexInfo;
 import com.springapp.mvc.entity.mybatis.PageInfo;
+import com.springapp.mvc.entity.origin.IndexInfoAdvance;
 import com.springapp.mvc.entity.origin.IndexInfoAll;
 import com.springapp.mvc.entity.origin.Message;
 import com.springapp.mvc.entity.origin.PageIdAll;
@@ -55,7 +55,7 @@ public class WelcomeController {
 
     @RequestMapping(value = "/modules/{departmentId}/{pageId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<IndexInfo> showModules (@PathVariable int departmentId, @PathVariable int pageId) {
+    public List<IndexInfoAdvance> showModules (@PathVariable int departmentId, @PathVariable int pageId) {
         return welcomeService.showModules(departmentId, pageId);
     }
 
@@ -91,7 +91,7 @@ public class WelcomeController {
 
     @RequestMapping(value = "/modules", method = RequestMethod.GET)
     @ResponseBody
-    public List<IndexInfo> showAllModules () {
+    public List<IndexInfoAdvance> showAllModules () {
         return welcomeService.showAllModules();
     }
 }

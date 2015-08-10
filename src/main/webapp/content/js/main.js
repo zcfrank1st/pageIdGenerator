@@ -86,7 +86,8 @@ app.controller('myController',function ($scope, $resource, $modal) {
             deptId : $scope.currentBusinessId.id || "",
             typeId: $scope.currentTypeId.id,
             owner : "",
-            isValid : 1
+            isValid : 1,
+            actionType: $scope.currentAction.name
         };
 
         if ("" === indexInfoAll.index) {
@@ -117,7 +118,17 @@ app.controller('myController',function ($scope, $resource, $modal) {
         {name:'h5', id:'2'},
         {name:'native', id:'3'}
     ];
+    // 行为固定
+    $scope.actions = [
+        {name: 'open', id: ''},
+        {name: 'click', id: ''},
+        {name: 'display', id: ''},
+        {name: 'scroll', id: ''},
+        {name: 'drag', id: ''},
+        {name: 'exit', id: ''}
+    ];
 
+    $scope.currentAction = $scope.actions[0];
     $scope.currentBusinessId = $scope.businessIds[0];
     $scope.currentTypeId = $scope.typeIds[0];
 
@@ -151,6 +162,7 @@ app.controller('myController',function ($scope, $resource, $modal) {
     $scope.viewAllModules = function () {
         $scope.m_department = true;
         showAllModules.query({}, function (data) {
+            console.log(data)
             var results = [];
             for (var i = 0; i <= data.length - 1; i++) {
                 data[i].type = transferTypeId2Type(data[i].typeId);
@@ -164,6 +176,7 @@ app.controller('myController',function ($scope, $resource, $modal) {
     $scope.viewModules = function () {
         $scope.m_department = false;
         showModules.query({departmentId: $scope.currentBusinessId.id, pageId: $scope.currentPageId.pageId}, function(data) {
+            console.log(data)
             var results = [];
             for (var i = 0; i <= data.length - 1; i++) {
                 data[i].type = transferTypeId2Type(data[i].typeId);
@@ -177,6 +190,7 @@ app.controller('myController',function ($scope, $resource, $modal) {
     $scope.delModule = function(id) {
         delModule.delete({id: id}, function() {
             $scope.viewPages();
+            $scope.viewModules();
             alert("删除module成功！");
         });
     };

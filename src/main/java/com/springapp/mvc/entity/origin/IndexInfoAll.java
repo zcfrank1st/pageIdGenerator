@@ -12,6 +12,15 @@ public class IndexInfoAll {
     private String owner;
     private int typeId;
     private int isValid;
+    private String actionType;
+
+    public String getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
 
     public int getId() {
         return id;
